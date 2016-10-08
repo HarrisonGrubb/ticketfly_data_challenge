@@ -1,1 +1,3 @@
 filename,source,description
+Data challenge .xlsx,"dawn, email","deprecated, use .csv"
+Data challenge  - tables.csv,"dawn, email","data set for challenge, containing all 3 tables"
