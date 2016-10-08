@@ -9,6 +9,8 @@ import logging
 
 import numpy as np
 import pandas as pd
+import patsy
+import statsmodels.api as sm
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -40,10 +42,12 @@ def create_training_df():
     # Return observations DF
     return observation_df
 
+
 def q1(df):
     # print df[['email_version', 'opened_flag', 'row_weight']].groupby(by=['email_version', 'opened_flag']).count()
 
-    print df[['opened_flag', 'row_weight', 'CTA_link_click']].groupby(by=['opened_flag']).agg({'row_weight': np.sum, 'CTA_link_click': np.sum})
+    print df[['opened_flag', 'row_weight', 'CTA_link_click']].groupby(by=['opened_flag']).agg(
+        {'row_weight': np.sum, 'CTA_link_click': np.sum})
     # print df['opened_flag'].value_counts()
     # print df[df['opened_flag']]['CTA_link_click'].value_counts()
     # print df[~df['opened_flag']]['CTA_link_click'].value_counts()
@@ -55,6 +59,20 @@ def q1(df):
     print df[(~df['opened_flag']) & (df['CTA_link_click'])].shape
     print df[(~df['opened_flag']) & ~(df['CTA_link_click'])].shape
 
+
+def q2(df):
+    print df['CTA_link_click'].value_counts()
+    y, X = patsy.dmatrices('CTA_link_click ~ user_past_purchases + user_country + np.sin(hour) + np.cos(hour)',
+                           data=df, return_type='dataframe')
+
+    print y
+    print X
+    mod = sm.Logit(y['CTA_link_click[True]'], X)
+    res = mod.fit()
+
+    print res.summary()
+
+
 def main():
     """
     Main function documentation template
@@ -65,6 +83,7 @@ def main():
     # Create dataset
     df = create_training_df()
     q1(df)
+    q2(df)
 
 
 # Main section
