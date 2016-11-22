@@ -1,11 +1,11 @@
-# Python Starter Repo
+# Ticketfly Data Challenge
 
-Project Description
+My response to the Datafly data challenge sent to me. 
 
 ## Getting started
 
 ### Repo structure
-Where important things are. 
+The instructions for this challenge are in `docs/instructions`. The code supporting my responses is in `bin/main`, and my actual response is in `docs/respose`
 
 ### Python Environment
 Python code in this repo utilizes packages that are not part of the common library. To make sure you have all of the 
